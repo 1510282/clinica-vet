@@ -46,7 +46,11 @@ public class IngresoController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteIngreso(@PathVariable Long id) {
-        ingresoService.anulatedById(id);
-        return ResponseEntity.noContent().build();
+      try {
+          ingresoService.anulatedById(id);
+          return ResponseEntity.noContent().build();
+      } catch (RuntimeException e) {
+          return ResponseEntity.badRequest().build();
+      }
     }
 }
